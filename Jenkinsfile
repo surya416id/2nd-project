@@ -1,14 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Welcome Step') {
+        stage('Build Step') {
             steps { 
-                echo 'Welcome to LambdaTest'
-            }
-        }
-        stage('build Step') {
-            steps { 
-                echo 'Welcome to LambdaTest'
+		echo 'builing....'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
     }
