@@ -11,15 +11,19 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-       stage('Test') {
+       	stage('Test') {
             steps {
                 sh 'mvn test'
             }
-       }
- 	stage('docker') {
+       	}
+ 	stage('docker push') {
             steps {
-                sh 'docker --version'
-sh 'docker build -t samplejavaapp:latest .'
+                sh 'aws --version'
+		sh 'docker --version'
+		sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 319937213100.dkr.ecr.ap-south-1.amazonaws.com'
+ 		sh 'docker build -t samplejavarepositiry .'
+		sh 'docker tag samplejavarepositiry:latest 319937213100.dkr.ecr.ap-south-1.amazonaws.com/samplejavarepositiry:latest'
+		sh 'docker push 319937213100.dkr.ecr.ap-south-1.amazonaws.com/samplejavarepositiry:latest'
             }
        }
     }
