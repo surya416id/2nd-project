@@ -19,6 +19,7 @@ pipeline {
  	stage('docker') {
             steps {
                 sh 'docker --version'
+sh 'docker build -t samplejavaapp:latest .'
             }
        }
     }
